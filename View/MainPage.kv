@@ -1,0 +1,43 @@
+#:import GeneratorPage ViewModel.GeneratorPage.GeneratorPage
+#:import ClientsPage ViewModel.ClientsPage.ClientsPage
+#:import ConditionsPage ViewModel.ConditionsPage.ConditionsPage
+
+<MainPage>
+    id: viewmodel_workbook
+
+    FloatLayout:
+        MDTopAppBar:
+	        size_hint: 1, .08
+	        pos_hint: {'center_x': .5, 'center_y': .96}
+	        title: 'Cash ExFlow'
+            elevation: 1
+
+        MDBottomNavigation:
+            panel_color: .2, .2, .2, 1
+            size_hint: 1, .92
+            text_color_normal: .8, .8, .8, .8
+
+            MDBottomNavigationItem:
+                name: 'main_screen'
+                text: 'Gerador Excel'
+                icon: 'book-plus'
+
+                GeneratorPage:
+                    id: generator_page_id
+
+            MDBottomNavigationItem:
+                name: 'clients_page'
+                text: 'Clientes'
+                icon: 'database-eye'
+                on_enter: clients_page_id.on_enter_clientsPage()
+
+                ClientsPage:
+                    id: clients_page_id
+
+            MDBottomNavigationItem:
+                name: 'conditions_page'
+                text: 'Condições'
+                icon: 'database-alert'
+
+                ConditionsPage:
+                    id: conditions_page_id
