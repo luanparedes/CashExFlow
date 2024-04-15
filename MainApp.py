@@ -4,10 +4,11 @@ from Control.ScreenManagement import ScreenManagement
 
 Window.minimum_width, Window.minimum_height = (700, 500)
 
+version = "v.1.0.0"
 
 class MainApp(MDApp):
     def build(self):
-        self.title = "Cash ExFlow"
+        self.title = f"Cash ExFlow {version}"
         # self.icon = "Assets/logo.png"
         self.theme_cls.primary_palette = 'Indigo'
         self.theme_cls.accent_palette = 'Gray'

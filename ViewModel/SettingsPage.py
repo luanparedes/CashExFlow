@@ -1,12 +1,10 @@
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 
-from Control.Dao import Dao
-
-Builder.load_file("View/MainPage.kv")
+Builder.load_file("View/SettingsPage.kv")
 
 
-class MainPage(Screen):
+class SettingsPage(Screen):
 
     # region Constructor
 
