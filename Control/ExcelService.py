@@ -1,77 +1,105 @@
-import xlsxwriter
 import openpyxl
 import openpyxl.styles as styles
-import numpy as np
 
 from Control.Conditions import Conditions
+from Helpers.ClientsEnum import ClientsEnum
 
 
 class ExcelService:
+    blue_color = "4682B4"
 
-    @staticmethod
-    def create_row_realpay(file_path):
-        workbook = openpyxl.load_workbook(file_path)
-        worksheet = workbook.active
+    file_path = None
+    workbook = None
+    worksheet = None
 
-        worksheet.insert_cols(10, 1)
-        worksheet["J1"] = "Pay Date"
-        worksheet["J1"].font = styles.Font(color="4682B4", bold=True)
-        worksheet["J1"].alignment = styles.Alignment(horizontal="center")
+    def __init__(self, path):
+        self.file_path = path
 
-        for i, j in enumerate(range(2, worksheet.max_row)):
-            cod = worksheet[f"B{j}"].value
-            date = worksheet[f"I{j}"].value
+    def open_spreadsheet(self):
+        self.workbook = openpyxl.load_workbook(self.file_path)
+        self.worksheet = self.workbook.active
+
+    def close_spreadsheet(self):
+        self.workbook.close()
+
+    def create_spreadsheet(self):
+        self.create_row_realpay()
+        self.edit_payment_date()
+
+    def create_row_realpay(self):
+        self.open_spreadsheet()
+
+        self.worksheet.insert_cols(10, 1)
+        self.header_style("J1", "Pay Date")
+
+        self.workbook.save(self.file_path)
+        self.close_spreadsheet()
+
+        print("Insert Column Successfully.")
+
+    def edit_payment_date(self):
+        self.open_spreadsheet()
+
+        for i, j in enumerate(range(2, self.worksheet.max_row + 1)):
+            cod = self.worksheet[f"B{j}"].value
+            date = self.worksheet[f"I{j}"].value
             new_value = ""
 
-            if cod == 35:
+            if cod == ClientsEnum.EATON_1:
                 new_value = Conditions.AlwaysThursdayCondition(date)
-            elif cod == 102:
+            elif cod == ClientsEnum.BOSCH_CAMPINAS:
                 new_value = Conditions.AlwaysWednesdayCondition(date)
-            elif cod == 110:
+            elif cod == ClientsEnum.TECUMSEH_1:
                 new_value = Conditions.AlwaysFridayCondition(date)
-            elif cod == 202:
+            elif cod == ClientsEnum.BOSCH_RS:
                 new_value = Conditions.AlwaysWednesdayCondition(date)
-            elif cod == 311:
+            elif cod == ClientsEnum.TAURUS:
                 new_value = Conditions.AlwaysFridayCondition(date)
-            elif cod == 319:
+            elif cod == ClientsEnum.MARELLI_MEXICO:
                 new_value = Conditions.Pay10and25Condition(date)
-            elif cod == 330:
+            elif cod == ClientsEnum.ZF_AUTOMOTIVE_1:
                 new_value = Conditions.AlwaysWednesdayCondition(date)
-            elif cod == 331:
+            elif cod == ClientsEnum.ZF_AUTOMOTIVE_2:
                 new_value = Conditions.AlwaysWednesdayCondition(date)
-            elif cod == 333:
+            elif cod == ClientsEnum.ZF_AUTOMOTIVE_3:
                 new_value = Conditions.AlwaysWednesdayCondition(date)
-            elif cod == 334:
+            elif cod == ClientsEnum.MARELLI_BRASIL:
                 new_value = Conditions.Pay10and25Condition(date)
-            elif cod == 567:
+            elif cod == ClientsEnum.WHIRLPOOL_1:
                 new_value = Conditions.EveryDay06Condition(date)
-            elif cod == 581:
+            elif cod == ClientsEnum.WHIRLPOOL_2:
                 new_value = Conditions.EveryDay06Condition(date)
-            elif cod == 680:
+            elif cod == ClientsEnum.TECUMSEH_2:
                 new_value = Conditions.AlwaysFridayCondition(date)
-            elif cod == 987:
+            elif cod == ClientsEnum.SEG_AUTOMOTIVE:
                 new_value = Conditions.AlwaysWednesdayCondition(date)
-            elif cod == 1320:
+            elif cod == ClientsEnum.SCHAEFFLER_1:
                 new_value = Conditions.Pay02and15Condition(date)
-            elif cod == 1332:
+            elif cod == ClientsEnum.WHIRLPOOL_3:
                 new_value = Conditions.EveryDay06Condition(date)
-            elif cod == 1344:
+            elif cod == ClientsEnum.VALEO:
                 new_value = Conditions.Pay10and25Condition(date)
-            elif cod == 1346:
+            elif cod == ClientsEnum.EATON_2:
                 new_value = Conditions.AlwaysThursdayCondition(date)
-            elif cod == 1379:
+            elif cod == ClientsEnum.SCHAEFFLER_2:
                 new_value = Conditions.Pay02and15Condition(date)
-            elif cod == 1381:
+            elif cod == ClientsEnum.PROCOMP:
                 new_value = Conditions.AlwaysMondayAndWednesdayCondition(date)
             else:
                 new_value = Conditions.WeekendCondition(date)
 
-            worksheet[f"J{j}"] = new_value
-            worksheet[f"J{j}"].font = styles.Font(color="4682B4", bold=True)
-            worksheet[f"J{j}"].alignment = styles.Alignment(horizontal="right")
+            self.worksheet[f"J{j}"] = new_value
+            self.cell_style(f"J{j}")
 
-        print("Insert Column Successfully.")
+        self.workbook.save(self.file_path)
+        self.close_spreadsheet()
 
-        workbook.save(file_path)
+    def cell_style(self, cell):
+        self.worksheet[cell].font = styles.Font(color=self.blue_color, bold=True)
+        self.worksheet[cell].alignment = styles.Alignment(horizontal="right")
 
+    def header_style(self, cell, header_value):
+        self.worksheet[cell] = header_value
+        self.worksheet[cell].font = styles.Font(color=self.blue_color, bold=True)
+        self.worksheet[cell].alignment = styles.Alignment(horizontal="center")
     # endregion

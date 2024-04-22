@@ -1,11 +1,56 @@
 <GeneratorPage>
     id: viewmodel
 
-    MDFillRoundFlatButton:
-        id: ok_button
-        text: "Carregar arquivos"
-        pos_hint: {"center_x": .5, "center_y": .5}
-        size_hint_x: .5
-        custom_color: "white"
-        size: (300, 300)
-        on_press: root.try_button_click()
+    RelativeLayout:
+        rows: 1
+        size: (500, 500)
+
+        Image:
+            size_hint: 0.23, 0.23
+            pos_hint: {"center_x": .12, "center_y": .90}
+            source: 'Assets/Logo_Associate_Text.png'
+            allow_stretch: True
+            keep_ratio: True
+
+    GridLayout:
+        rows: 3
+        cols: 1
+
+        BoxLayout:
+            RelativeLayout:
+                rows: 2
+                size: (200, 200)
+
+                MDRaisedButton:
+                    id: ok_button
+                    text: "Carregar arquivo..."
+                    pos_hint: {"center_x": .5, "center_y": .7}
+                    size_hint_x: .18
+                    custom_color: "white"
+                    size: (80, 50)
+                    on_press: root.get_file_action()
+
+                Label:
+                    text: root.filePath
+                    pos_hint: {"center_x": .5, "center_y": .35}
+
+        Image:
+            size_hint: 0.8, 0.8
+            source: 'Assets/Logo_Associate.png'
+            allow_stretch: True
+            keep_ratio: True
+
+        BoxLayout:
+            RelativeLayout:
+                rows: 2
+                size: (200, 200)
+
+                MDFillRoundFlatButton:
+                    id: generate_button
+                    text: "Gerar Excel"
+                    pos_hint: {"center_x": .5, "center_y": .3}
+                    size_hint_x: .4
+                    custom_color: "white"
+                    size: (80, 50)
+                    disabled: root.generateDisabled
+                    on_press: root.generate_excel_action()
