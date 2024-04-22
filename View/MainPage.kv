@@ -11,6 +11,7 @@
 	        pos_hint: {'center_x': .5, 'center_y': .96}
 	        title: 'Cash ExFlow'
             elevation: 1
+            left_action_items: [["menu", lambda x: root.open_menu(x)]]
 
         MDBottomNavigation:
             panel_color: .2, .2, .2, 1
