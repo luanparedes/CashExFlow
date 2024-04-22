@@ -20,17 +20,15 @@ class MainApp(MDApp):
         self.theme_cls.accent_hue = '300'
         self.theme_cls.theme_style = 'Dark'
 
-        #print(Conditions.Pay10and25Condition(datetime.date(2024, 12, 25)))
-        print(Conditions.Pay10and25Condition(datetime.date(2024, 5, 20)))
-        print(Conditions.Pay02and15Condition(datetime.date(2024, 5, 20)))
-        #print(Conditions.WeekendCondition(datetime.date(2024, 4, 20)))
-        print(Conditions.AlwaysWednesdayCondition(datetime.date(2024, 4, 20)))
-        print(Conditions.AlwaysThursdayCondition(datetime.date(2024, 4, 20)))
-        print(Conditions.AlwaysFridayCondition(datetime.date(2024, 4, 20)))
-        print(Conditions.EveryDay06Condition(datetime.date(2024, 4, 20)))
-        print(Conditions.EveryDay06Condition(datetime.date(2024, 4, 2)))
-        print(Conditions.EveryDay06Condition(datetime.date(2024, 4, 6)))
-        print(Conditions.EveryDay06Condition(datetime.date(2024, 12, 1)))
+        #TODO Remove these codes after excel implementation
+        print(Conditions.WeekendCondition(datetime.date(2024, 5, 11)))
+        print(Conditions.AlwaysWednesdayCondition(datetime.date.today()))
+        print(Conditions.AlwaysThursdayCondition(datetime.date(2024, 5, 31)))
+        print(Conditions.AlwaysFridayCondition(datetime.date(2024, 5, 15)))
+        print(Conditions.Pay10and25Condition(datetime.date(2024, 5, 15)))
+        print(Conditions.Pay02and15Condition(datetime.date(2024, 5, 26)))
+        print(Conditions.EveryDay06Condition(datetime.date(2024, 5, 4)))
+        print(Conditions.AlwaysMondayAndWednesdayCondition(datetime.date(2024, 4, 25)))
 
         return ScreenManagement()
 
