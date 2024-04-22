@@ -1,0 +1,55 @@
+<AboutCard>
+    id: about_card
+
+    orientation: "vertical"
+    radius: 22
+    size_hint: root.card_size
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    padding: 20
+
+    FloatLayout:
+        size_hint: 1, 1
+        MDLabel:
+            text: 'Projeto Cash ExFlow'
+            halign: 'center'
+            font_size: 32
+            pos_hint: {'center_x': .5, 'center_y': .98}
+
+        MDLabel:
+            text: 'Sunnymoon Software'
+            halign: 'center'
+            font_size: 30
+            pos_hint: {'center_x': .5, 'center_y': .8}
+
+        Image:
+            size_hint: 0.3, 0.3
+            pos_hint: {"center_x": .5, "center_y": .58}
+            source: 'Assets/Logo_192x192.png'
+            allow_stretch: True
+            keep_ratio: True
+
+        MDLabel:
+            text: 'Engenheiro de software:'
+            halign: 'center'
+            font_size: 28
+            pos_hint: {'center_x': .5, 'center_y': .28}
+
+        MDLabel:
+            text: 'Luan Lucas de Simas Paredes'
+            halign: 'center'
+            font_size: 17
+            pos_hint: {'center_x': .5, 'center_y': .20}
+
+        MDLabel:
+            text: 'Versão 1.0.0'
+            halign: 'left'
+            font_size: 20
+            pos_hint: {'center_x': .50, 'center_y': .03}
+
+        MDFillRoundFlatButton:
+            id: text_button
+            text: 'Fechar'
+            font_size: root.text_button_size
+            size_hint: root.button_size
+            pos_hint: {'center_x': .90, 'center_y': .04}
+            on_release: root.isOpen_check()
