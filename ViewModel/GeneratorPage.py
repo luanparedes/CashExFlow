@@ -1,9 +1,10 @@
 import datetime
 import os
 import shutil
+import pathlib
 
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty
+from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.filemanager import MDFileManager
 
@@ -15,8 +16,10 @@ Builder.load_file("View/GeneratorPage.kv")
 class GeneratorPage(Screen):
     # region Properties and variables
 
-    folderPath = ObjectProperty()
-    copyPath = ObjectProperty()
+    filePath = StringProperty()
+    folderPath = StringProperty()
+    copyPath = StringProperty()
+    generateDisabled = BooleanProperty(True)
 
     # endregion
 
@@ -41,27 +44,44 @@ class GeneratorPage(Screen):
         self.file_manager.show(path)
 
     def copy_file(self):
-        date = datetime.date.today()
-        new_file_name = (f"Cashflow_{date.year}-{date.month}-{date.day}_"
-                         f"014430.xlsx")
+        self.copyPath = f"{self.folderPath}{self.create_file_name()}"
+        shutil.copyfile(self.filePath, self.copyPath)
 
-        self.copyPath = f"C:\\Users\\luans\\Downloads\\{new_file_name}"
+    def generate_file(self):
+        excel = ExcelService(self.copyPath)
+        excel.create_spreadsheet()
 
-        shutil.copyfile(self.folderPath, self.copyPath)
+    @staticmethod
+    def create_file_name():
+        time = datetime.datetime.now()
+        year = time.strftime("%Y")
+        month = time.strftime("%m")
+        day = time.strftime("%d")
+        hour = time.strftime("%H")
+        minute = time.strftime("%M")
+        second = time.strftime("%S")
 
-        ExcelService.create_row_realpay(self.copyPath)
+        return f"Cashflow_{year}-{month}-{day}_{hour}{minute}{second}.xlsx"
 
     # endregion
 
     # region Handlers
 
-    def try_button_click(self):
+    def get_file_action(self):
         self._open_file_manager()
 
-    def select_path(self, path: str):
-        self.folderPath = path
-        self.exit_manager()
+        if self.copyPath is not None:
+            self.generateDisabled = False
+
+    def generate_excel_action(self):
         self.copy_file()
+        self.generate_file()
+
+    def select_path(self, path: str):
+        self.filePath = path
+        parentPath = pathlib.Path(self.filePath).parent
+        self.folderPath = f"{parentPath}\\"
+        self.exit_manager()
 
     def exit_manager(self, *args):
         self.manager_open = False

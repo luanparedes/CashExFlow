@@ -1,5 +1,7 @@
 import datetime
 
+from Helpers.WeekDayEnum import WeekDayEnum
+
 
 class Conditions:
 
@@ -15,7 +17,7 @@ class Conditions:
         else:
             new_date = date
 
-        return f"{new_date.day}/{new_date.month}/{new_date.year}"
+        return Conditions.formated_date(new_date)
 
     @staticmethod
     def AlwaysWednesdayCondition(date):
@@ -27,7 +29,7 @@ class Conditions:
 
         new_date = date + datetime.timedelta(next_wednesday)
 
-        return f"{new_date.day}/{new_date.month}/{new_date.year}"
+        return Conditions.formated_date(new_date)
 
     @staticmethod
     def AlwaysThursdayCondition(date):
@@ -39,7 +41,7 @@ class Conditions:
 
         new_date = date + datetime.timedelta(next_thursday)
 
-        return f"{new_date.day}/{new_date.month}/{new_date.year}"
+        return Conditions.formated_date(new_date)
 
     @staticmethod
     def AlwaysFridayCondition(date):
@@ -51,7 +53,7 @@ class Conditions:
 
         new_date = date + datetime.timedelta(next_friday)
 
-        return f"{new_date.day}/{new_date.month}/{new_date.year}"
+        return Conditions.formated_date(new_date)
 
     @staticmethod
     def Pay10and25Condition(date):
@@ -122,14 +124,12 @@ class Conditions:
         else:
             new_date = date + datetime.timedelta(next_wednesday)
 
-        return f"{new_date.day}/{new_date.month}/{new_date.year}"
+        return Conditions.formated_date(new_date)
 
+    @staticmethod
+    def formated_date(time):
+        year = time.strftime("%Y")
+        month = time.strftime("%m")
+        day = time.strftime("%d")
 
-class WeekDayEnum:
-    MONDAY = 0
-    TUESDAY = 1
-    WEDNESDAY = 2
-    THURSDAY = 3
-    FRIDAY = 4
-    SATURDAY = 5
-    SUNDAY = 6
+        return f"{day}/{month}/{year}"
