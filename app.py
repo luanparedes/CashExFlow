@@ -3,14 +3,14 @@ import datetime
 from kivymd.app import MDApp
 from kivy.core.window import Window
 
-from Control.Conditions import Conditions
 from Control.ScreenManagement import ScreenManagement
 
 Window.minimum_width, Window.minimum_height = (700, 500)
 
 version = "v.1.0.0"
 
-class MainApp(MDApp):
+
+class App(MDApp):
     def build(self):
         self.title = f"Cash ExFlow {version}"
         self.icon = "Assets/Logo_36x36.png"
@@ -24,4 +24,4 @@ class MainApp(MDApp):
 
 
 if __name__ == '__main__':
-    MainApp().run()
+    App().run()
