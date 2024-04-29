@@ -1,17 +1,19 @@
-from kivy.app import App
-from kivy.lang import Builder
+from kivy.app import App as kivyApp
 from kivy.metrics import dp
+from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.menu import MDDropdownMenu
 
+from Helpers.AppInfo import AppInfo
 from ViewModel.AboutCard import AboutCard
+from ViewModel.GeneratorPage import GeneratorPage
 
-Builder.load_file("View/MainPage.kv")
+AppInfo.GetDebugOrRelease(AppInfo.is_debug, 'View\\MainPage.kv')
 
 
 class MainPage(Screen):
-
     menu_items = []
+    test = ObjectProperty()
 
     # region Constructor
 
@@ -55,7 +57,7 @@ class MainPage(Screen):
         self.menu.dismiss()
 
     def exit_login(self):
-        App.get_running_app().stop()
+        kivyApp.get_running_app().stop()
 
     def set_isOpen(self):
         self.card = AboutCard()
@@ -68,5 +70,9 @@ class MainPage(Screen):
         else:
             self.remove_widget(self.card)
         self.menu.dismiss()
+
+    def on_enter_page(self):
+        #self.children(GeneratorPage())
+        self.add_widget(GeneratorPage())
 
     # endregion

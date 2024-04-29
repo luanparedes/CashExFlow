@@ -2,6 +2,7 @@ from kivy.properties import StringProperty
 from kivy.uix.screenmanager import ScreenManager, FadeTransition
 from ViewModel.MainPage import MainPage
 
+
 class ScreenManagement(ScreenManager):
     screen = StringProperty()
 

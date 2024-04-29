@@ -3,14 +3,14 @@ import os
 import shutil
 import pathlib
 
-from kivy.lang import Builder
 from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.filemanager import MDFileManager
 
 from Control.ExcelService import ExcelService
+from Helpers.AppInfo import AppInfo
 
-Builder.load_file("View/GeneratorPage.kv")
+AppInfo.GetDebugOrRelease(AppInfo.is_debug, 'View\\GeneratorPage.kv')
 
 
 class GeneratorPage(Screen):

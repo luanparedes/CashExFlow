@@ -1,11 +1,13 @@
-from kivy.lang import Builder
-from kivy.properties import BooleanProperty, NumericProperty, ListProperty
+from kivy.properties import BooleanProperty, NumericProperty, ListProperty, StringProperty
 from kivymd.uix.card import MDCard
 
-Builder.load_file("View/AboutCard.kv")
+from Helpers.AppInfo import AppInfo
+
+AppInfo.GetDebugOrRelease(AppInfo.is_debug, 'View\\AboutCard.kv')
 
 
 class AboutCard(MDCard):
+    app_version = StringProperty(f'Versão {AppInfo.app_version}')
     isOpen = BooleanProperty(False)
     card_size = ListProperty([0, 0])
     button_size = ListProperty([0, 0])
