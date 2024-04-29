@@ -1,5 +1,6 @@
 <MainPage>
     id: viewmodel_workbook
+    on_enter: viewmodel_workbook.on_enter_page()
 
     RelativeLayout:
         MDTopAppBar:
@@ -25,7 +26,7 @@
                 name: 'main_screen'
                 text: 'Gerador Excel'
                 icon: 'book-plus'
-                on_tab_press: viewmodel_workbook.on_enter_page()
+                on_tab_press: viewmodel_workbook.go_to_generator_page()
 
             # TODO this code will be active when page with clients and conditions is requested.
             #MDBottomNavigationItem:
