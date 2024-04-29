@@ -21,6 +21,8 @@ class MainPage(Screen):
         super().__init__(**kwargs)
         self.card = None
 
+    # endregion
+
     def open_menu(self, button):
         self.menu_items.clear()
         self.fill_menu()
@@ -72,7 +74,9 @@ class MainPage(Screen):
         self.menu.dismiss()
 
     def on_enter_page(self):
-        #self.children(GeneratorPage())
+        self.go_to_generator_page()
+
+    def go_to_generator_page(self):
         self.add_widget(GeneratorPage())
 
     # endregion

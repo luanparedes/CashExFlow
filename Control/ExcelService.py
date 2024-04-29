@@ -97,7 +97,7 @@ class ExcelService:
     def cell_style(self, cell):
         self.worksheet[cell].font = styles.Font(color=self.blue_color, bold=True)
         self.worksheet[cell].alignment = styles.Alignment(horizontal="right")
-        self.worksheet[cell].number_format = 'data'
+        self.worksheet[cell].number_format = 'DD/MM/YYYY'
 
     def header_style(self, cell, header_value):
         self.worksheet[cell] = header_value
