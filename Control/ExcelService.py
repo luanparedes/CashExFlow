@@ -1,5 +1,8 @@
+from datetime import datetime
+
 import openpyxl
 import openpyxl.styles as styles
+from openpyxl.worksheet.filters import DateGroupItem, FilterColumn
 
 from Control.Conditions import Conditions
 from Helpers.ClientsEnum import ClientsEnum
@@ -97,10 +100,24 @@ class ExcelService:
     def cell_style(self, cell):
         self.worksheet[cell].font = styles.Font(color=self.blue_color, bold=True)
         self.worksheet[cell].alignment = styles.Alignment(horizontal="right")
+
+        date_cell = datetime.strptime(f"{self.worksheet[cell].value}", "%d/%m/%Y")
+        self.worksheet[cell].value = date_cell
         self.worksheet[cell].number_format = 'DD/MM/YYYY'
 
     def header_style(self, cell, header_value):
         self.worksheet[cell] = header_value
         self.worksheet[cell].font = styles.Font(color=self.blue_color, bold=True)
         self.worksheet[cell].alignment = styles.Alignment(horizontal="center")
+
+    def filter_column(self):
+        self.worksheet.auto_filter.ref = f"A1:P{self.worksheet.max_row}"
+        df1 = DateGroupItem(month=3, dateTimeGrouping="month")
+        col = FilterColumn(colId=1)  # second column
+        col.filters.dateGroupItem.append(df1)
+
+    def filter_spreadsheet(self):
+        # TODO: Make all sheet be sorted by pay Date column
+        pass
+
     # endregion
