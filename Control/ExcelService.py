@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import openpyxl
 import openpyxl.styles as styles
 
@@ -97,10 +99,14 @@ class ExcelService:
     def cell_style(self, cell):
         self.worksheet[cell].font = styles.Font(color=self.blue_color, bold=True)
         self.worksheet[cell].alignment = styles.Alignment(horizontal="right")
+
+        date_cell = datetime.strptime(f"{self.worksheet[cell].value}", "%d/%m/%Y")
+        self.worksheet[cell].value = date_cell
         self.worksheet[cell].number_format = 'DD/MM/YYYY'
 
     def header_style(self, cell, header_value):
         self.worksheet[cell] = header_value
         self.worksheet[cell].font = styles.Font(color=self.blue_color, bold=True)
         self.worksheet[cell].alignment = styles.Alignment(horizontal="center")
+
     # endregion
