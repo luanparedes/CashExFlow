@@ -1,10 +1,10 @@
 from kivy.app import App as kivyApp
 from kivy.metrics import dp
-from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.menu import MDDropdownMenu
 
 from Helpers.AppInfo import AppInfo
+from Helpers.PageEnum import PageEnum
 from ViewModel.AboutCard import AboutCard
 from ViewModel.GeneratorPage import GeneratorPage
 
@@ -13,12 +13,13 @@ AppInfo.GetDebugOrRelease(AppInfo.is_debug, 'View\\MainPage.kv')
 
 class MainPage(Screen):
     menu_items = []
-    test = ObjectProperty()
 
     # region Constructor
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+        self.name = PageEnum.MainPage
         self.card = None
 
     # endregion
@@ -35,12 +36,12 @@ class MainPage(Screen):
         self.menu.open()
 
     def fill_menu(self):
-        """self.menu_items.append({
+        self.menu_items.append({
             "text": "Configurações",
             "viewclass": "OneLineListItem",
             "height": dp(56),
             "on_release": self.open_settings
-        })"""
+        })
         self.menu_items.append({
             "text": "Sobre...",
             "viewclass": "OneLineListItem",
@@ -55,7 +56,7 @@ class MainPage(Screen):
         })
 
     def open_settings(self):
-        self.parent.screen = 'settings'
+        self.parent.screen = PageEnum.SettingsPage
         self.menu.dismiss()
 
     def exit_login(self):
@@ -77,6 +78,8 @@ class MainPage(Screen):
         self.go_to_generator_page()
 
     def go_to_generator_page(self):
-        self.add_widget(GeneratorPage())
+        self.selected_tab = GeneratorPage()
+        self.add_widget(self.selected_tab)
+
 
     # endregion

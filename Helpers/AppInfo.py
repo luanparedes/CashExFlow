@@ -6,6 +6,7 @@ class AppInfo:
     app_name = "Cash ExFlow"
     app_version = "1.0.5"
     app_icon = "Assets/icon.ico"
+    folder_path = "C:\\Users\\luans\\Downloads\\"
     is_debug = True
 
     @staticmethod

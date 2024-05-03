@@ -32,14 +32,14 @@ class GeneratorPage(Screen):
 
     # region Methods
 
-    def _open_file_manager(self, is_saving=False):
-        path = os.path.expanduser("~")  # path to the directory that will be opened in the file manager
-        self.file_manager = MDFileManager(exit_manager=self.exit_manager, select_path=self.select_path, )
+    def _open_file_manager(self):
+        path = os.path.expanduser(AppInfo.folder_path)  # path to the directory that will be opened in the file manager
 
-        if is_saving:
-            self.file_manager.selector = "folder"
-        else:
-            self.file_manager.selector = "file"
+        self.file_manager = MDFileManager(exit_manager=self.exit_manager, select_path=self.select_path, )
+        self.file_manager.use_access = True
+        self.file_manager.sort_by = 'date'
+        self.file_manager.ext = [".xlsx"]
+        self.file_manager.selector = "file"
 
         self.file_manager.show(path)
 
