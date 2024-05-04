@@ -9,6 +9,7 @@ from kivymd.uix.filemanager import MDFileManager
 
 from Control.ExcelService import ExcelService
 from Helpers.AppInfo import AppInfo
+from Helpers.Dao import Dao
 
 AppInfo.GetDebugOrRelease(AppInfo.is_debug, 'View\\GeneratorPage.kv')
 
@@ -28,12 +29,13 @@ class GeneratorPage(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        self.user_folder = Dao.get_folder_path()
     # endregion
 
     # region Methods
 
     def _open_file_manager(self):
-        path = os.path.expanduser(AppInfo.folder_path)  # path to the directory that will be opened in the file manager
+        path = os.path.expanduser(self.user_folder)  # path to the directory that will be opened in the file manager
 
         self.file_manager = MDFileManager(exit_manager=self.exit_manager, select_path=self.select_path, )
         self.file_manager.use_access = True
