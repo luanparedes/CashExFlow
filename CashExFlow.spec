@@ -16,7 +16,7 @@ a = Analysis(
 	('D:/01_Desktop/Developer/Softwares/Python/CashExFlow/View', './View'),
 	('D:/01_Desktop/Developer/Softwares/Python/CashExFlow/Assets', './Assets'),
 	('D:/01_Desktop/Developer/Softwares/Python/CashExFlow/CashExFlow_database.db', '.')],
-    hiddenimports=['../ViewModel', '../View', '../Assets'],
+    hiddenimports=['../ViewModel', '../View', '../Assets', 'sqlite3'],
     hookspath=['../ViewModel/GeneratorPage.py'],
     hooksconfig={},
     runtime_hooks=[],
