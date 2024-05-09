@@ -6,7 +6,10 @@ import pathlib
 from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.filemanager import MDFileManager
+from kivymd.uix.label import MDLabel
+from kivymd.uix.snackbar.snackbar import MDSnackbar
 
+from Control.Dialog import Dialog, TypeDialog
 from Control.ExcelService import ExcelService
 from Helpers.AppInfo import AppInfo
 from Helpers.Dao import Dao
@@ -22,6 +25,8 @@ class GeneratorPage(Screen):
     copyPath = StringProperty()
     generateDisabled = BooleanProperty(True)
 
+    dialog = None
+    
     # endregion
 
     # region Constructor
@@ -30,6 +35,7 @@ class GeneratorPage(Screen):
         super().__init__(**kwargs)
 
         self.user_folder = Dao.get_folder_path()
+
     # endregion
 
     # region Methods
@@ -77,7 +83,23 @@ class GeneratorPage(Screen):
 
     def generate_excel_action(self):
         self.copy_file()
+
+        self.dialog = Dialog(dialog_type=TypeDialog.ProgressDialog)
+
+        # When dismiss dialog, it calls this callback
+        self.dialog.dialog.on_dismiss = self.dialog_close_callback
+        self.dialog.open()
+
         self.generate_file()
+
+    def dialog_close_callback(self, *args):
+        self.filePath = ""
+        self.generateDisabled = True
+
+        snackbar = MDSnackbar()
+        snackbar.md_bg_color = (.0, .255, .128, 1)
+        snackbar.add_widget(MDLabel(text=f"Arquivo criado com sucesso em {self.copyPath}"))
+        snackbar.open()
 
     def select_path(self, path: str):
         self.filePath = path

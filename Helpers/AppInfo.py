@@ -6,10 +6,10 @@ from kivy.resources import resource_find
 
 class AppInfo:
     app_name = "Cash ExFlow"
-    app_version = "1.0.5"
+    app_version = "1.1.0"
     app_icon = "Assets/icon.ico"
     app_data = f"{os. path. expanduser('~')}\\AppData\\Local\\Sunnymoon\\CashExFlow\\CashExFlow_database.db"
-    is_debug = False
+    is_debug = True
 
     @staticmethod
     def GetDebugOrRelease(self, path):
