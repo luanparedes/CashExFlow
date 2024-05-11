@@ -14,8 +14,7 @@ a = Analysis(
     binaries=[],
     datas=[
 	('D:/01_Desktop/Developer/Softwares/Python/CashExFlow/View', './View'),
-	('D:/01_Desktop/Developer/Softwares/Python/CashExFlow/Assets', './Assets'),
-	('D:/01_Desktop/Developer/Softwares/Python/CashExFlow/CashExFlow_database.db', '.')],
+	('D:/01_Desktop/Developer/Softwares/Python/CashExFlow/Assets', './Assets'),],
     hiddenimports=['../ViewModel', '../View', '../Assets', 'sqlite3'],
     hookspath=['../ViewModel/GeneratorPage.py'],
     hooksconfig={},
