@@ -7,6 +7,7 @@ from kivy.core.window import Window
 
 from Control.ScreenManagement import ScreenManagement
 from Helpers.AppInfo import AppInfo
+from Helpers.Dao import Dao
 
 Window.minimum_width, Window.minimum_height = (700, 500)
 
@@ -22,6 +23,8 @@ class App(MDApp):
         self.theme_cls.accent_hue = '300'
         self.theme_cls.theme_style = 'Dark'
 
+        Dao.create_database()
+        
         return ScreenManagement()
 
 

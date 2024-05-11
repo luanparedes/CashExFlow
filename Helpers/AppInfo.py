@@ -9,6 +9,7 @@ class AppInfo:
     app_version = "1.1.0"
     app_icon = "Assets/icon.ico"
     app_data = f"{os. path. expanduser('~')}\\AppData\\Local\\Sunnymoon\\CashExFlow\\CashExFlow_database.db"
+    default_folder_path = f"{os. path. expanduser('~')}\\Downloads"
     is_debug = True
 
     @staticmethod
