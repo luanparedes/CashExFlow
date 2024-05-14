@@ -21,7 +21,7 @@ class Dao:
             sql = 'CREATE TABLE IF NOT EXISTS FolderPath ("id" INTEGER NOT NULL UNIQUE, "path" TEXT, PRIMARY KEY("id" AUTOINCREMENT))'
             cursor.execute(sql)
         
-            sql = f"INSERT INTO IF NOT EXISTS FolderPath (id, path) VALUES (1, '{AppInfo.default_folder_path}')"
+            sql = f"INSERT OR IGNORE INTO FolderPath (id, path) VALUES (1, '{AppInfo.default_folder_path}')"
             cursor.execute(sql)
         except:
             pass
