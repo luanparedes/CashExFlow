@@ -6,7 +6,7 @@ from kivy.resources import resource_find
 
 class AppInfo:
     app_name = "Cash ExFlow"
-    app_version = "1.1.0"
+    app_version = "1.1.3"
     app_icon = "Assets/icon.ico"
     app_data = f"{os. path. expanduser('~')}\\AppData\\Local\\Sunnymoon\\CashExFlow\\CashExFlow_database.db"
     default_folder_path = f"{os. path. expanduser('~')}\\Downloads"
